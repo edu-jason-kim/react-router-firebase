@@ -1,6 +1,12 @@
+import Auth from "../components/Auth"
+
 function Home () {
 
-  return <div>홈입니다</div>
+  return <div>
+    <h1>홈입니다</h1>
+
+    <Auth />
+  </div>
 }
 
 export default Home
