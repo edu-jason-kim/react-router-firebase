@@ -7,6 +7,7 @@ import {
 import Home from './pages/Home.jsx'
 import Articles from './pages/Articles.jsx'
 import ArticleDetail from './pages/AricleDetail.jsx'
+import { AuthProvider } from './context/AuthProvider.jsx'
 
 // Path별 router를 정의
 const router = createBrowserRouter([
@@ -27,7 +28,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* React Router의 기능을 제공하는 Provider 컴포넌트 */}
-    <RouterProvider router={router} />
+    {/* 인증상태 값을 전달하기 위한 Provider, 하위 컴포넌트들은 `user` 값에 접근할 수 있다 (ref. AuthProvider.jsx) */}
+    <AuthProvider>
+      {/* React Router의 기능을 제공하는 Provider 컴포넌트 */}
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 )

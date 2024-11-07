@@ -1,50 +1,32 @@
-import { onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth"
-import { auth, googleProvider } from "../firebase"
-import { useEffect, useState } from "react"
+import { signInWithPopup, signOut } from "firebase/auth";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthProvider";
+import { auth, googleProvider } from "../firebase";
 
-function Auth () {
-  // user라고 하는 상태 값을 관리할 예정
-  const [user, setUser] = useState(null) // 기본값: null <- 로그인 안된 상태
+function Auth() {
+  // Context API를 통해서 user 정보 획득
+  const { user } = useContext(AuthContext);
 
   const handleGoogleLogin = () => {
-    // TODO: 구글 로그인 구현
-    signInWithPopup(auth, googleProvider)
-  }
+    signInWithPopup(auth, googleProvider);
+  };
 
   const handleLogout = () => {
-    signOut(auth)
-  }
+    signOut(auth);
+  };
 
-  // 최초 렌더링 시 1회 실행
-  useEffect(() => {
-    // 인증 상태 변경 리스너
-    // 인증에 변화가 생겼을 때 user 정보를 업데이트한다.
-    onAuthStateChanged(auth, (user) => {
-      setUser(user)
-    })
-  }, [])
-
-  return <div>
-
-    { user 
-    
-      ?
-
-      <div>
-        <span>Hello, {user.displayName}!</span>
-        <button onClick={handleLogout}>
-          Logout
-        </button>
-      </div>
-      
-      :
-    
-      <button onClick={handleGoogleLogin}>
-        Login with Google
-      </button>
-    }
-
-  </div>
+  return (
+    <div>
+      {/* 삼항연사자를 통해서 조건부로 로그인/로그아웃 버튼 노출 */}
+      {user ? (
+        // 사용자 정보가 있다면, 로그아웃 버튼 노출
+        <button onClick={handleLogout}>Logout</button>
+      ) : (
+        // 사용자 정보가 없다면, 로그인 버튼 노출
+        <button onClick={handleGoogleLogin}>Login with Google</button>
+      )}
+    </div>
+  );
 }
 
-export default Auth
+export default Auth;

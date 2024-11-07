@@ -11,7 +11,11 @@ const firebaseConfig = {
   measurementId: "G-GZYX62QE1P"
 };
 
-// Initialize Firebase
+// 설정한 Firebase 프로젝트 초기화
 const app = initializeApp(firebaseConfig);
+
+// 프로젝트의 인증관련 설정이 담긴 객체
 export const auth = getAuth(app);
+
+// 구글 로그인 제공자
 export const googleProvider = new GoogleAuthProvider()
