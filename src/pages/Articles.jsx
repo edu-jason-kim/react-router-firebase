@@ -1,9 +1,19 @@
+import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Header from "../components/Header";
-import articles from "../data/articles";
+import articleService from "../database/articleService";
 
 function Articles() {
+  const [articles, setArticles] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    // articleService.getArticles은 외부 데이터 fetch 로직으로 promise를 반환하는 비동기 함수.
+    // then을 통해서 promise 값을 기다리고, 값이 도착할 때 실행할 함수를 정의할 수 있다.
+    articleService.getArticles().then((articles) => {
+      setArticles(articles);
+    });
+  }, []);
 
   const handleFilterChange = (e) => {
     setSearchParams({

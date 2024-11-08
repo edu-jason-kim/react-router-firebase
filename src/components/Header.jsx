@@ -12,6 +12,7 @@ function Header() {
     >
       <Link to="/">Logo</Link>
       <Link to="/articles">아티클</Link>
+      <Link to="/articles/new">new</Link>
 
       <div style={{ marginLeft: "auto" }}>
         <Auth />

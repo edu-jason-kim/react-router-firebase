@@ -6,8 +6,9 @@ import {
 } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import Articles from './pages/Articles.jsx'
-import ArticleDetail from './pages/AricleDetail.jsx'
+import ArticleDetail from './pages/ArticleDetail.jsx'
 import { AuthProvider } from './context/AuthProvider.jsx'
+import ArticleCreate from './pages/ArticleCreate.jsx'
 
 // Path별 router를 정의
 const router = createBrowserRouter([
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
     // `:` 기호로 동적 parameter를 제공할 수 있다.
     path: '/articles/:id',
     element: <ArticleDetail />
+  },
+  {
+    path: '/articles/new',
+    element: <ArticleCreate />
   }
 ])
 
