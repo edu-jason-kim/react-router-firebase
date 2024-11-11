@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import articleService from "../database/articleService";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
+import ChatRoom from "../components/ChatRoom";
 
 function ArticleDetail() {
   const navigate = useNavigate();
@@ -40,10 +41,14 @@ function ArticleDetail() {
         {article.category} | {article.date}
       </div>
       <div>{article.description}</div>
-
       <Link to={`/articles/edit/${article.id}`}>수정하기</Link>
 
       <button onClick={handleDelete}>삭제하기</button>
+
+      <hr />
+
+      <ChatRoom articleId={articleId} />
+
     </div>
   );
 }
