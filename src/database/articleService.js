@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, query, setDoc, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
 const COLLECTION_NAME = 'articles'
@@ -53,6 +53,11 @@ const articleService = {
   async updateArticle (articleId, updatedArticle) {
     const articleRef = doc(db, COLLECTION_NAME, articleId)
     await updateDoc(articleRef, updatedArticle)
+  },
+
+  async deleteArticle (articleId) {
+    const articleRef = doc(db, COLLECTION_NAME, articleId)
+    await deleteDoc(articleRef)
   }
 }
 
