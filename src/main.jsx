@@ -8,7 +8,7 @@ import Home from './pages/Home.jsx'
 import Articles from './pages/Articles.jsx'
 import ArticleDetail from './pages/ArticleDetail.jsx'
 import { AuthProvider } from './context/AuthProvider.jsx'
-import ArticleCreate from './pages/ArticleCreate.jsx'
+import ArticleForm from './pages/ArticleForm.jsx'
 
 // Path별 router를 정의
 const router = createBrowserRouter([
@@ -27,7 +27,12 @@ const router = createBrowserRouter([
   },
   {
     path: '/articles/new',
-    element: <ArticleCreate />
+    element: <ArticleForm />
+  },
+  // article 수정 페이지
+  {
+    path: '/articles/edit/:id',
+    element: <ArticleForm />
   }
 ])
 

@@ -1,17 +1,34 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Header from "../components/Header"
 import { v4 } from "uuid"
 import articleService from "../database/articleService"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 
-function ArticleCreate () {
+function ArticleForm () {
   // article 생성을 위한 값
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     category: 'news', // 기본값이 'news'
   })
+
+  const params = useParams()
+  const articleId = params.id // 있을수도 있고, 없을수도 있음
+  const isEditing = !!articleId // !! 연산자로 값을 boolean값으로 변환 가능
+
+  useEffect(() => {
+    if (!articleId) return;
+
+    articleService.getArticle(articleId).then((article) => {
+      // form에 기존 article data 
+      setFormData({
+        title: article.title,
+        description: article.description,
+        category: article.category,
+      })
+    })
+  }, [articleId])
   
 
   // Link 클릭 형태가 아닌, 함수 호출로 페이지 이동할 수 있게 함
@@ -64,13 +81,19 @@ function ArticleCreate () {
       {/* 제목 */}
       <div>
         <label htmlFor="title">제목</label>
-        <input id="title" name="title" type="text" onChange={handleChange} />
+        <input
+          id="title"
+          name="title"
+          type="text"
+          onChange={handleChange}
+          value={formData.title}
+        />
       </div>
 
       {/* 카테고리 */}
       <div>
         <label htmlFor="category">카테고리</label>
-        <select name="category" id="category" onChange={handleChange}>
+        <select name="category" id="category" onChange={handleChange} value={formData.category}>
           <option value="news">NEWS</option>
           <option value="no normal pick">No Normal Pick</option>
         </select>
@@ -79,7 +102,7 @@ function ArticleCreate () {
       {/* 내용 */}
       <div>
         <label htmlFor="description">내용</label>
-        <input id="description" name="description" type="text" onChange={handleChange} />
+        <input id="description" name="description" type="text" onChange={handleChange} value={formData.description} />
       </div>
 
       {/* 생성 버튼 */}
@@ -90,4 +113,4 @@ function ArticleCreate () {
   </div>
 }
 
-export default ArticleCreate
+export default ArticleForm

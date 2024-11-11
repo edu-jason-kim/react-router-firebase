@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, query, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
 const COLLECTION_NAME = 'articles'
@@ -48,6 +48,11 @@ const articleService = {
     const articleSnapshot = await getDoc(articleRef)
 
     return articleSnapshot.data()
+  },
+
+  async updateArticle (articleId, updatedArticle) {
+    const articleRef = doc(db, COLLECTION_NAME, articleId)
+    await updateDoc(articleRef, updatedArticle)
   }
 }
 

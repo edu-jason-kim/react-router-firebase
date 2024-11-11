@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import articleService from "../database/articleService";
 import Header from "../components/Header";
+import { Link } from "react-router-dom";
 
 function ArticleDetail() {
   // react-router의 useParams 함수를 통해서 전달받은 parameter 접근 가능
@@ -27,6 +28,8 @@ function ArticleDetail() {
       <h1>{article.title}</h1>
       <div>{article.category} | {article.date}</div>
       <div>{article.description}</div>
+
+      <Link to={`/articles/edit/${article.id}`} >수정하기</Link>
     </div>
   );
 }
